@@ -1,0 +1,22 @@
+<style type="text/css">
+	a {
+		text-decoration: none;
+		text-align: center;
+		display: inline-block;
+		min-width: 80px;
+	}
+</style>
+
+<nav>
+	{% for item in site.data.navigation %}
+		<a href="{{ item.link }}" 
+			{% if page.url == item.link %}
+				style = "color: white; background-color: lightblue;" 
+			{% else %} 
+				style = "color: lightblue;"
+			{% endif %}
+			>
+			{{ item.name }}
+		</a>
+	{% endfor %}
+</nav>
