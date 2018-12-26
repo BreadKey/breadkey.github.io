@@ -2,4 +2,13 @@
 title: 빵기의 블로그!
 layout: default
 ---
-<h1>{{ "index" | downcase}}</h1>
+<div id="latest-post-container">
+	<h1>Latest Posts</h1>
+	<ul>
+		{% for post in site.posts %}
+			<li>
+				{% include post_summary.html %}
+			</li>
+		{% endfor %}
+	</ul>
+</div>
