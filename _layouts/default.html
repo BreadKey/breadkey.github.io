@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ page.title }}</title>
+	<link rel="stylesheet" type="text/css" href="{{ "/css/default.css" | prepend: site.base }}">
+</head>
+<body>
+	<div class="center-container">
+		<div class="center-content">
+			{% include navigation.html %}
+		</div>
+	</div>
+		{{ content }}
+</body>
+</html>

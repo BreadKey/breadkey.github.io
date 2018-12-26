@@ -1,0 +1,18 @@
+---
+layout: default
+title: 공부
+---
+
+<div>
+	<ul>
+		{% for post in site.posts %}
+			{% for category in post.categories %}
+				{% if category == "study" %}
+					<li>
+						{% include post_summary.html %}
+					</li>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}
+	</ul>
+</div>
