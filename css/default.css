@@ -14,3 +14,33 @@
 	height: 30px;
 	background-color: dimgray;
 }
+
+table.tag-container {
+	border-collapse: separate;
+	border-spacing: 5px;
+}
+
+td.tag-content {
+	min-width: 70px;
+	border-radius: 5px;
+	background-color: dimgray;
+	color: beige;
+	text-align: center;
+}
+
+li {
+	border-bottom: 1.5px solid beige;
+}
+
+ul {
+	list-style-type: none;
+	padding-inline-start: 20px;
+}
+
+a#post-title {
+	color: burlywood;
+}
+
+a#post-title:hover {
+	color: beige;
+}

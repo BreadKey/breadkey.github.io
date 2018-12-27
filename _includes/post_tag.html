@@ -1,5 +1,7 @@
-<div class="tag-container">
+<table class="tag-container">
 	{% for tag in post.tags %}
-		<p>{{ tag }}</p>
+		<td class="tag-content">
+				{{ tag }}
+		</td>
 	{% endfor %}
-</div>
+</table>
