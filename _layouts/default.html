@@ -5,11 +5,13 @@
 	<link rel="stylesheet" type="text/css" href="{{ "/css/default.css" | prepend: site.base }}">
 </head>
 <body>
-	<div class="center-container">
+	<div class="center-container" id="navigation-container">
 		<div class="center-content">
 			{% include navigation.html %}
 		</div>
 	</div>
+	<div style="width: 80%;">
 		{{ content }}
+	</div>
 </body>
 </html>
