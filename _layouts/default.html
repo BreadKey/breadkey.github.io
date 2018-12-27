@@ -10,8 +10,18 @@
 			{% include navigation.html %}
 		</div>
 	</div>
-	<div style="width: 80%;">
-		{{ content }}
+	<div style="width: 100%;">
+		<div style="width: 220px; float:left;">
+			<div id="profile-container">
+				<div id="profile-image-container" style="margin: 10%; display: inline-block;">
+					<img src = "/assets/img/profile.png">
+				</div>
+				<h1 style="text-align: center; color: burlywood;">BreadKey</h1>
+			</div>
+		</div>	
+		<div style="display: table;">
+			{{ content }}
+		</div>
 	</div>
 </body>
 </html>

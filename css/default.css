@@ -44,3 +44,15 @@ a#post-title {
 a#post-title:hover {
 	color: beige;
 }
+
+img {
+	max-width: 100%;
+}
+
+#profile-container {
+	height: 280px;
+	background-color: dimgray;
+	margin-top: 20px;
+	margin-right: 20px;
+	border-radius: 20px;
+}
