@@ -1,12 +1,16 @@
 ---
 layout: default
 ---
+<head>
+	<link rel="stylesheet" type="text/css" href="{{ "/css/post.css" | prepend: site.base }}">
+</head>
 
-<div id="post-content" width="80%">
-	<h1>{{ page.title }}</h1>
-	<p>{{ page.date | date_to_string }} - {{ page.author }}</p>
-
-	{{ content }}
+<div id="post-container">
+	<h1 id="post-title">{{ page.title }}</h1>
+	<p id = "post-date">{{ page.date | date_to_string }} - {{ page.author }}</p>
+	<div id="post-content">
+		{{ content }}
+	</div>
 </div>
 
 {% assign post = page %}

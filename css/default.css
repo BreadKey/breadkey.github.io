@@ -11,8 +11,9 @@
 }
 
 #navigation-container {
-	height: 30px;
+	height: 50px;
 	background-color: dimgray;
+	font-size: 1.2em;
 }
 
 table.tag-container {
