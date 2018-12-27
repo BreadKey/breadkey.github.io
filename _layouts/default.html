@@ -5,14 +5,14 @@
 	<title>{{ page.title }}</title>
 	<link rel="stylesheet" type="text/css" href="{{ "/css/default.css" | prepend: site.base }}">
 </head>
-<body>
+<body style="margin: 0px;">
 	<div class="center-container" id="navigation-container">
 		<div class="center-content">
 			{% include navigation.html %}
 		</div>
 	</div>
 	<div style="width: 100%;">
-		<div style="width: 220px; float:left;">
+		<div style="width: 280px; float:left;">
 			<div id="profile-container">
 				<div id="profile-image-container" style="margin: 10%; display: inline-block;">
 					<img src = "/assets/img/profile.png">
@@ -21,7 +21,9 @@
 			</div>
 		</div>	
 		<div style="display: flow-root;">
-			{{ content }}
+			<div style="max-width: 800px; margin: 5%; margin-left: 0px;">	
+				{{ content }}
+			</div>
 		</div>
 	</div>
 </body>
