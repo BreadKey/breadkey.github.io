@@ -1,0 +1,14 @@
+#post-title {
+	border-bottom: 1.5px solid beige;
+	padding-bottom: 0.2em;
+	margin-block-end: 0em;
+}
+
+#post-date {
+	text-align: right;
+	margin-block-start: 0em;
+}
+
+#post-content {
+	margin: 10px;
+}
