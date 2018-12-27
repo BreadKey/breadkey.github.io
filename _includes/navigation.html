@@ -11,7 +11,7 @@
 	{% for item in site.data.navigation %}
 		<a href="{{ item.link }}" 
 			{% if page.url == item.link %}
-				style = "color: burlywood;" 
+				style = "color: burlywood; font-weight: bold;" 
 			{% else %} 
 				style = "color: beige;"
 			{% endif %}
