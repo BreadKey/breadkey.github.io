@@ -77,3 +77,13 @@ img {
 .main div {
 	box-sizing: border-box;
 }
+
+.highlighter-rouge {
+	background-color: beige;
+	color: black;
+	padding-inline-start: 1em;
+	padding-block-start: 0.1em;
+	padding-block-end: 0.1em;
+	border-radius: 0.5em;
+	overflow-x: auto;
+}
