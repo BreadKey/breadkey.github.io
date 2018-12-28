@@ -25,12 +25,12 @@ td.tag-content {
 	min-width: 70px;
 	border-radius: 5px;
 	background-color: dimgray;
-	color: beige;
+	color: ivory;
 	text-align: center;
 }
 
 li {
-	border-bottom: 1.5px solid beige;
+	border-bottom: 1.5px solid ivory;
 }
 
 ul {
@@ -43,7 +43,7 @@ a#post-title {
 }
 
 a#post-title:hover {
-	color: beige;
+	color: wheat;
 }
 
 img {
@@ -79,7 +79,7 @@ img {
 }
 
 .highlighter-rouge {
-	background-color: beige;
+	background-color: ivory;
 	color: black;
 	padding-inline-start: 1em;
 	padding-block-start: 0.1em;
