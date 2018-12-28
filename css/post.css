@@ -21,3 +21,16 @@
 #post-content li {
 	border-bottom: none;
 }
+
+#post-container {
+	border-bottom: 1.5px solid burlywood;
+}
+
+.post-figure img {
+	max-width: 500px;
+	max-height: 500px;
+}
+
+.post-figure figcaption {
+	text-align: center;
+}
