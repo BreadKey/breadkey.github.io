@@ -51,9 +51,29 @@ img {
 }
 
 #profile-container {
-	height: 280px;
+	width: 20%;
+	height: 28%;
+	float: right;
 	background-color: dimgray;
+	margin-right: 5%;
+	border-radius: 5%;
+}
+
+#content-container {
+	width: 75%;
+}
+
+.float-left {
+	float: left!important;
+}
+
+.main {
+	max-width: 1012px; 
+	margin-left: auto; 
+	margin-right: auto;
 	margin-top: 20px;
-	margin-right: 20px;
-	border-radius: 20px;
+}
+
+.main div {
+	box-sizing: border-box;
 }

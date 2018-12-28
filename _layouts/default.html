@@ -5,23 +5,29 @@
 	<title>{{ page.title }}</title>
 	<link rel="stylesheet" type="text/css" href="{{ "/css/default.css" | prepend: site.base }}">
 </head>
-<body>
-	<div class="center-container" id="navigation-container">
-		<div class="center-content">
-			{% include navigation.html %}
+<body style="margin: 0px; min-width: 1012px;">
+	<div class="menu">
+		<div class="center-container" id="navigation-container">
+			<div class="center-content">
+				{% include navigation.html %}
+			</div>
 		</div>
 	</div>
-	<div style="width: 100%;">
-		<div style="width: 220px; float:left;">
-			<div id="profile-container">
-				<div id="profile-image-container" style="margin: 10%; display: inline-block;">
-					<img src = "/assets/img/profile.png">
-				</div>
-				<h1 style="text-align: center; color: burlywood;">BreadKey</h1>
+	<div class="main-container">
+		<div class="main">
+			<div class="float-left" id="profile-container">
+				<a href="about.html" style="width: 100%">
+					<div id="profile-image-container" style="margin: 10%; display: inline-block;">
+						<img src = "/assets/img/profile.png">
+					</div>
+					<h1 style="text-align: center; color: burlywood;">BreadKey</h1>
+				</a>
 			</div>
-		</div>	
-		<div style="display: flow-root;">
-			{{ content }}
+			<div id="content-container" class="float-left">
+				<div style="margin: 5%; margin-left: 0px;">	
+					{{ content }}
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
