@@ -29,20 +29,21 @@ td.tag-content {
 	text-align: center;
 }
 
-li {
-	border-bottom: 1.5px solid ivory;
+.post-list li {
+	border-bottom: 1px solid wheat;
+	padding-bottom: 10px;
 }
 
-ul {
+.post-list ul {
 	list-style-type: none;
 	padding-inline-start: 20px;
 }
 
-a#post-title {
+.post-summary a {
 	color: burlywood;
 }
 
-a#post-title:hover {
+.post-summary a:hover {
 	color: wheat;
 }
 

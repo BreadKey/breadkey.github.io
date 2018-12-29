@@ -4,11 +4,6 @@ layout: default
 ---
 <div id="latest-post-container">
 	<h1>Latest Posts</h1>
-	<ul>
-		{% for post in site.posts %}
-			<li>
-				{% include post_summary.html %}
-			</li>
-		{% endfor %}
-	</ul>
+	{% assign posts = site.posts %}
+	{% include post_list.html %}
 </div>
