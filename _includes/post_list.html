@@ -1,0 +1,9 @@
+<div class="post-list">
+	<ul>
+		{% for post in site.posts %}
+			<li>
+				{% include post_summary.html %}
+			</li>
+		{% endfor %}
+	</ul>
+</div>
