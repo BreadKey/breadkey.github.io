@@ -3,7 +3,7 @@ layout: post
 title: Applying UML and Patterns Chapter.1
 author: breadkey
 categories: study
-tags: [object-oriented, Applying UML and Patterns]
+tags: [object-oriented, applying-uml-and-patterns]
 ---
 ## Object-Oriented Analyasis and Design
 * * *
