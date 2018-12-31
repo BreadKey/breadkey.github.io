@@ -4,7 +4,9 @@
 	</th>
 	{% for tag in post.tags %}
 		<td class="tag-content">
+			<a id="tag-link" href="/tags/{{ tag }}">
 				{{ tag }}
+			</a>
 		</td>
 	{% endfor %}
 </table>

@@ -1,1 +1,15 @@
 timezone: Asia/Seoul
+
+markdown: kramdown
+
+collections:
+  tags:
+    output: true
+    permalink: /tags/:path/
+
+defaults:
+  - scope:
+      path: ''
+      type: "tags"
+    values:
+      layout: "tag"
