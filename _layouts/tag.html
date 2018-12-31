@@ -1,0 +1,17 @@
+---
+layout: default
+---
+{% for category in site.categories %}
+	<div class="post-list">
+		<h1>{{ category[0] }}</h1>
+		<ul>
+			{% for post in category[1] %}
+				{% if post.tags contains page.name %}
+				<li>
+					{% include post_summary.html %}
+				</li>
+				{% endif %}
+			{% endfor %}
+		</ul>
+	</div>
+{% endfor %}
