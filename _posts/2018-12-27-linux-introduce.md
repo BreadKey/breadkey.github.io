@@ -4,6 +4,7 @@ title: 리눅스 소개
 author: breadkey
 categories: study
 tags: linux
+published: false
 ---
 ## 리눅스의 개요
 간단하게 **무료 유닉스** 정도로 생각가능하다.
