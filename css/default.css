@@ -25,8 +25,15 @@ td.tag-content {
 	min-width: 70px;
 	border-radius: 5px;
 	background-color: dimgray;
-	color: ivory;
 	text-align: center;
+}
+
+a#tag-link {
+	color: ivory;
+}
+
+a:hover#tag-link {
+	color: burlywood;
 }
 
 .post-list li {
