@@ -25,25 +25,26 @@ td.tag-content {
 	min-width: 70px;
 	border-radius: 5px;
 	background-color: dimgray;
-	color: beige;
+	color: ivory;
 	text-align: center;
 }
 
-li {
-	border-bottom: 1.5px solid beige;
+.post-list li {
+	border-bottom: 1px solid wheat;
+	padding-bottom: 10px;
 }
 
-ul {
+.post-list ul {
 	list-style-type: none;
 	padding-inline-start: 20px;
 }
 
-a#post-title {
+.post-summary a {
 	color: burlywood;
 }
 
-a#post-title:hover {
-	color: beige;
+.post-summary a:hover {
+	color: wheat;
 }
 
 img {
@@ -76,4 +77,14 @@ img {
 
 .main div {
 	box-sizing: border-box;
+}
+
+.highlighter-rouge {
+	background-color: ivory;
+	color: black;
+	padding-inline-start: 1em;
+	padding-block-start: 0.1em;
+	padding-block-end: 0.1em;
+	border-radius: 0.5em;
+	overflow-x: auto;
 }
