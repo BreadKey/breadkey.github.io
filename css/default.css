@@ -67,14 +67,6 @@ a:hover#tag-link {
 	padding-inline-start: 20px;
 }
 
-.post-summary a {
-	color: burlywood;
-}
-
-.post-summary a:hover {
-	color: wheat;
-}
-
 img {
 	max-width: 100%;
 }
