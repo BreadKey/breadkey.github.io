@@ -14,8 +14,8 @@ tags: android
 >> **필수**. [adb](https://developer.android.com/studio/command-line/adb?hl=ko)를 비롯하여 안드로이드 플랫폼에 필요한 다양한 도구를 포함함
 >>> *안드로이드 플랫폼: 버전벌로 만들어진 실행환경. PC에서는 **에뮬레이터** 실제 단말에서는 **OS**라고 생각하면 된다.*{: style="font-size: 0.8em;"}
 
-> ### ANdroid SDK Tools
->> **필수**. 안드로이 에뮬레이터, ProGuard와 같은 필수적인 도구를 포함함
+> ### Android SDK Tools
+>> **필수**. 안드로이드 에뮬레이터, ProGuard와 같은 필수적인 도구를 포함함
 
 > ### Android Support Repository
 >> 권장. 지원 라이브러리를 위한 로컬 Maven 레포지토리를 포함하며, 대부분의 안드로이드 버전과 호환되는 확장 API 세트를 제공함. 웨어, TV, 구글 캐스트와 같은 제품에 필요
