@@ -41,6 +41,14 @@ td.tag-content {
 	padding-inline-end: 10px;
 }
 
+a#post-title-link {
+	color: burlywood;
+}
+
+a:hover#post-title-link {
+	color: wheat;
+}
+
 a#tag-link {
 	color: ivory;
 }
@@ -57,14 +65,6 @@ a:hover#tag-link {
 .post-list ul {
 	list-style-type: none;
 	padding-inline-start: 20px;
-}
-
-.post-summary a {
-	color: burlywood;
-}
-
-.post-summary a:hover {
-	color: wheat;
 }
 
 img {
