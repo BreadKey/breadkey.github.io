@@ -41,6 +41,14 @@ td.tag-content {
 	padding-inline-end: 10px;
 }
 
+a#post-title-link {
+	color: burlywood;
+}
+
+a:hover#post-title-link {
+	color: wheat;
+}
+
 a#tag-link {
 	color: ivory;
 }
