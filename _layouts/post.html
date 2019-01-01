@@ -15,3 +15,37 @@ layout: default
 
 {% assign post = page %}
 {% include post_tag.html %}
+
+
+<div class="post-list">
+	<h1>Related Posts</h1>
+	<ul>
+		{% assign tagCount = 0 %}
+		{% for tag in page.tags %}
+			{% assign tagCount = tagCount | plus: 1 %}
+		{% endfor %}
+
+		{% for post in site.posts %}
+			{% if post == page %}
+				{% continue %}
+			{% endif %}
+			{% assign sameTagCount = 0 %}
+			{% assign posts = '' %}
+			{% for category in post.categories %}
+				{% if page.categories contains category %}
+					{% for tag in post.tags %}
+						{% if page.tags contains tag %}
+							{% assign sameTagCount = sameTagCount | plus: 1 %}
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+			{% endfor %}
+
+			{% if sameTagCount == tagCount %}
+				<li>
+					<a id="post-title-link" href={{ post.url }}><h2>{{ post.title }}</h2></a>
+				</li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>

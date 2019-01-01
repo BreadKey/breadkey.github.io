@@ -1,3 +1,13 @@
+a {
+	text-decoration: none;
+}
+
+#category {
+	text-align: center;
+	display: inline-block;
+	min-width: 80px;
+}
+
 .center-container {
 	display: table;
 	width: 100%;
@@ -22,10 +32,21 @@ table.tag-container {
 }
 
 td.tag-content {
-	min-width: 70px;
 	border-radius: 5px;
 	background-color: dimgray;
 	text-align: center;
+	padding-block-start: 2px;
+	padding-block-end: 2px;
+	padding-inline-start: 10px;
+	padding-inline-end: 10px;
+}
+
+a#post-title-link {
+	color: burlywood;
+}
+
+a:hover#post-title-link {
+	color: wheat;
 }
 
 a#tag-link {
