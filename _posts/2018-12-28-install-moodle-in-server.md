@@ -146,3 +146,79 @@ $ yum list docker-ce --showduplicates | sort -r
 ```
 이 명령어는 테스트 이미지를 다운받고 컨테이너에서 실행시킨다.
 {% include figure.html src='/assets/img/docker-hello-world.PNG' figcaption='정상적으로 설치됐다면 위와 같은 메세지를 확인할 수 있다' %}
+
+### 도커를 통한 무들 설치
+>> ### Docker Compose를 사용해 실행
+>>> #### 1. 도커 컴포즈 설치
+[CentOS 7에 Docker Compose 설치하기](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-centos-7)
+1. python-pip 설치
+```
+# yum install epel-release
+# yum install python-pip
+```
+2. Docker compose 설치
+```
+# yum upgrade python*
+# pip install docker-compose
+```
+3. 정상적으로 작동하는지 확인
+```
+$ mkdir docker-compose-test
+$ cd docker-compose-test
+$ gedit docker-compose.yml
+```
+***docker-compose.yml***
+```
+test:
+	image: hello-world
+```
+```
+$ docker-compose up
+```
+{% include figure.html src="/assets/img/docker-compose-test.PNG" figcaption="정상적으로 설치되었다면(docker는 start되어 있어야 함) 위와 같이 출력된다." %}
+>>> #### 2. 무들 설치
+[도커를 통한 무들 설치 가이드](https://github.com/bitnami/bitnami-docker-moodle)
+```
+$ mkdir moodle-test
+$ cd moodle-test
+$ gedit docker-compose.yml
+```
+***docker-compose.yml***
+```
+version: '2'
+services:
+  mariadb:
+    image: 'bitnami/mariadb:latest'
+    environment:
+      - MARIADB_USER=bn_moodle
+      - MARIADB_DATABASE=bitnami_moodle
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'mariadb_data:/bitnami'
+  moodle:
+    image: 'bitnami/moodle:latest'
+    environment:
+      - MARIADB_HOST=mariadb
+      - MARIADB_PORT_NUMBER=3306
+      - MOODLE_DATABASE_USER=bn_moodle
+      - MOODLE_DATABASE_NAME=bitnami_moodle
+      - ALLOW_EMPTY_PASSWORD=yes
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - 'moodle_data:/bitnami'
+    depends_on:
+      - mariadb
+volumes:
+  mariadb_data:
+    driver: local
+  moodle_data:
+    driver: local
+```
+포트번호가 사용중일 수 있으니 사용중인 포트 번호를 다른 번호로 변경한다. *ex) '80:80' -> '4000:80'*
+```
+$ docker-compose up moodle
+```
+이후 ip주소:포트번호로 브라우저를 통해 접속해본다.
+{% include figure.html src="/assets/img/new-moodle-site.PNG" figcaption="모든 설치가 정상적으로 이루어졌다면 나오는 새로운 무들 사이트 화면" %}
