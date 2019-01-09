@@ -57,12 +57,12 @@ a:hover#tag-link {
 	color: burlywood;
 }
 
-.post-list li {
+ul#post-list-ul {
 	border-bottom: 1px solid wheat;
 	padding-bottom: 10px;
 }
 
-.post-list ul {
+li#post-list-li {
 	list-style-type: none;
 	padding-inline-start: 20px;
 }
