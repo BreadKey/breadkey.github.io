@@ -34,3 +34,6 @@ public final class Integer extends Number implements Comparable<Ineger> {
 3. 결과는 데이터에 의존하기도 한다.
 
 > 
+
+
+- 작성중
