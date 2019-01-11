@@ -4,6 +4,7 @@ author: breadkey
 layout: post
 categories: study
 tags: [java, data-structure]
+published: false
 ---
 [참고서](https://book.naver.com/bookdb/book_detail.nhn?bid=13648903)
 ## 자바의 리스트가 두 종류인 이유
