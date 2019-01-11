@@ -117,3 +117,5 @@ tags: [android]
 >>> #### Technology and Data Variations List:
 - 신원 등록 방법은 카카오톡, 네이버, 구글을 통해 등록한다.
 - 인증 기록은 암호화되어 저장된다.
+
+- 
