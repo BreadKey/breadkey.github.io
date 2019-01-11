@@ -18,6 +18,20 @@
 	padding-inline-start: 40px;
 }
 
+#post-content table {
+	border-collapse: collapse;
+}
+
+#post-content th {
+	background-color: dimgray;
+	color: white;
+}
+
+#post-content td {
+	padding: 3px;
+	border: dimgray 1px solid;
+}
+
 #post-content li {
 	border-bottom: none;
 }
