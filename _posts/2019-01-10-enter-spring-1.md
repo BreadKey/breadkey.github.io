@@ -192,5 +192,31 @@ UI는 보통 화면을 가르키는 것으로 한다.
 　  
 트랜잭션에서는 ACID라는 지켜야 할 특성이 존재한다. 이 중 신경써야 하는 것은 A와 I이다.
 
+<table>
+	<tbody>
+		<tr>
+			<th style="width: 20%">ACID</th>
+			<th style="width: 20%">의미</th>
+			<th style="width: 60%">설명</th>
+		</tr>
+		<tr>
+			<td>Atomicity</td>
+			<td>트랜잭션의 원자성</td>
+			<td>트랜잭션 내의 모든 처리는 전부 실행됐거나 아무것도 실행되지 않았다.</td>
+		</tr>
+		<tr>
+			<td>Consistency</td>
+			<td>데이터의 일관성</td>
+			<td>데이터에 일관성이 있어야 한다.
+			-일관성을 지키지 않은 예: 상위 테이블이 없는데 하위 테이블이 있는 경우</td>
+		</tr>
+		<tr>
+			<td>Isolation</td>
+			<td>트랜잭션의 독립성</td>
+			<td>병행해서 달리는 트랜잭션이 서로 독립된 것</td>
+		</tr>
+	</tbody>
+</table>
+
 
 - 작성중
