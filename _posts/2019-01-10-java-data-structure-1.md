@@ -34,7 +34,6 @@ public final class Integer extends Number implements Comparable<Ineger> {
 2. 결과는 사용하는 컴퓨터의 성능에 의존하므로 다른 컴퓨터에선 다른 알고리즘이 더 좋을 수도 있다.
 3. 결과는 데이터에 의존하기도 한다.
 
-> 
 
 
 - 작성중
