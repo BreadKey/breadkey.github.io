@@ -195,8 +195,8 @@ UI는 보통 화면을 가르키는 것으로 한다.
 <table>
 	<tbody>
 		<tr>
-			<th style="width: 20%">ACID</th>
-			<th style="width: 20%">의미</th>
+			<th style="width: 15%">ACID</th>
+			<th style="width: 25%">의미</th>
 			<th style="width: 60%">설명</th>
 		</tr>
 		<tr>
