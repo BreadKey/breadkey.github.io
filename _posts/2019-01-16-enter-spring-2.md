@@ -494,3 +494,327 @@ bean 정의 파일에 위와 같은 내용이 포함된다. 인스턴스화 할 
 
 * * *
 ## JavaConfig를 이용한 DI
+> 자동으로 컴파일해주는 IDE를 이용해 혼자 프로그래밍하는 경우 편리하다. XML에 기술했던 정의를 자바 프로그램으로 작성할 수 있게 됐기 때문에 JavaConfig를 사용하는 경향이 강해질 것이다.  
+　  
+XML의 Bean 정의보다 뛰어난 점이 타입 세이프(프로퍼티명이나 클래스명이 틀렸을 경우 컴파일 에러를 내는 것)이다.  
+　  
+혼자 개발하는 경우 JavaConfig, 리더가 있어서 관리할 수 있는 소규모 개발이면 어노테이션을, 대규모 개발이면 Bean 정의 파일을 중심으로 한 일부 어노테이션을 이용하는 것을 추천한다. 트랜잭션은 Bean 정의 파일에 정의하고 DI와 AOP의 대상이 되는 컴포넌트의 정의는 어노테이션을 이용하는 조합도 괜찮다.  
+　  
+어느 방법으로라도 자주 문제가 되는 것이 트랜잭션 관리이다. 이 부분은 잘 관리된 설계서가 반드시 필요하다.
+
+> ### 예제를 이용한 JavaConfig
+>> bean 파일을 사용한 DI의 applicationContext.xml을 다음과 같이 JavaConfig로 변경할 수 있다.  
+config/AppConfig.java
+```
+@Configuration
+public class AppConfig {
+    @Bean(autowire = Autowire.BY_TYPE)
+    public PokemonService pokemonService() {
+        return new PokemonServiceImpl();
+    }
+    　
+    @Bean
+    public PokemonDao pokemonDao() {
+        return new PokeamonDaoImpl();
+    }
+}
+```
+사용은 다음처럼 사용한다.
+PokedexRun.java
+```
+public class PokedexRun {
+	...
+	// main
+	...
+	　
+	public vod execute() {
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+		　
+		PokedexService pokedexService = context.getBean(PokedexService.class);
+		...
+	}
+}
+```
+component scan도 사용할 수 있다.
+```
+@Configuration
+@ComponentScan("스캔 범위")
+public class AppConfig { ... }
+```
+복수의 Bean을 import하 듯이 복수의 JavaConfig도 import할 수 있다.
+```
+@Configuration
+@Import(콘피그1.class, 콘피그2.class)
+public class AppConfig { ... }
+```
+생성자를 통한 인젝션도 가능하다. 이 방법은 Setter 인젝션을 이용할 경우에도 같은 방법으로 사용할 수 있다. 먼저 PokemonDao Bean은 다음과 같이 정의해 놓았다.  
+/config/AppConfigDao.java
+```
+@Configuration
+public class AppConfigDao {
+	@Bean
+	public PokemonDao pokemonDao() {
+		return new PokemonDaoImpl;
+	}
+}
+```
+```
+...
+@Bean
+public PokededxService pokedexService() {
+	return new PokedexServiceImpl(pokemonDao);
+}
+```
+여기서 **pokemonDao**는 3가지 방법으로 인젝션할 수 있다.
+1. **@Bean 메서드를 인수로부터 취득**
+```
+@Import(AppConfigDao.class)
+... {
+	@Bean
+	public PokemonService pokemonService(PokemonDao pokemonDao) {
+		return new PokemonServiceImpl(pokemonDao);
+	}
+}
+```
+2. **@Bean 메서드를 불러들여서 취득**  
+config/AppContextSetDaoByMethod.java
+```
+@Bean
+public PokemonService pokemonService() {
+	return new PokemonServiceImpl(pokemonDao());
+}
+　
+@Bean
+public BaseStatsCalculateService baseStatsCalculateService() {
+	return new BaseStatsCalculateServiceImpl(pokemonDao());
+}
+```
+- JavaConfig안에 @Bean pokemonDao() 메서드가 정의되어있어야한다.
+- @Bean 메서드는 처음 호출되었을 떄 DI 컨테이너에 등록하고, 같은 호출이 있을 때 DI 컨테이너에서 반환해주므로 pokemonDao() 메서드는 한 번만 실행된다!(물론 스코프가 싱글턴)
+3. **@Autowired 프로퍼티에서 취득**
+```
+@Import(AppConfigDao.class)
+... {
+	@Autowired
+	private PokemonDao pokemonDao;
+　
+	@Bean
+	public PokemonService pokemonService() {
+		return new PokemonService(pokemonDao);
+	}
+}
+```
+
+> ### JavaConfig를 사용할 곳에 대해서
+>> IDE를 써서 개발하는 경우 JavaConfig를 써는 것에 쉽게 이점을 느낄 수 있다.(xml에 익숙하지 않아서 그런지 제일 편한 것 같다.)  
+　  
+단 복수의 인원으로 진행할 때 인스턴스화되는 클래스를 다른 사람이 만들게 되면 JavaConfig에는 클래스가 없습니다라는 경고가 발생할 것이다. 특히 JavaConfig는 프로그램이므로 머릿속에서 정확하게 분리해두지 않으면, 무엇이 처리를 위한 클래스인지, 무엇이 설정을 기술한 클래스인지 혼란스러워질 가능성도 크다.
+
+* * *
+## ApplicationContext
+> BeanFactory를 확장한 것이다. Bean 정의 파일 읽기, 메시지 소스, 이벤트 처리 등의 기능을 BeanFactory에 추가한 것이다.
+> ### 웹 애플리케이션에서의 Bean 정의 파일 읽기
+>> 웹 애플리케이션은 ContextLoaderListener 클래스나 ContextLoaderServlet 클래스에 의해 자동으로 ApplicationContext가 로드되므로 이를 이용하게 된다.  
+　  
+위에서 해오던 방식은 클라이언트가 요청할 때마다 매번 클래스 안에서 DI 컨테이너를 생성한다. ContextListener 클래스와 Bean 정의 파일을 다음과 같이 정의하여 매번 DI 컨테이너를 생성하지 않도록 한다.  
+web.xml
+```
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/bean 정의 파일.xml</param-value>
+	</context-param>
+	...
+	<listener>
+		<listener-class>
+			org.springframework.web.context.ContextLoaderListener
+		</listener-class>
+	</listener>
+	<!-- 리스너를 ContextLoaderServlet으로
+	<servlet>
+		<servlet-name>context</servlet-name>
+		<servlet-class>org.springframework.web.context.ContextLoaderServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	-->
+```  
+Bean 정의 파일이 여러 개일 경우 공백이나 ; 또는 ,로 구분한다.  
+　  
+클래스 경로상에 있을 떄는 classpath:설정 파일의 경로 형식 으로 읽어 들일 수 있다.  
+　  
+간단한 예제 애플리케이션을 만들고 싶을 떄는 해오던 것 처럼 해오면 된다. Bean 정의 파일이 여러 개일 때는 new ClassPathXmlApplicationContext("a.xml", "b.xml", "c.xml"); 이렇게 넘겨주면 된다.  
+　  
+POJO로 만든 클래스에서 사용하고 싶은 경우 @Autowired를 통해 ApplicationContext를 인젝션할 수 있다.
+
+> ### 웹 애플리케이션에서 JavaConfig 읽어 들이기
+>> ```
+	...
+	<context-param>
+		// 명시적으로 지정해야함
+		<param-name>contextClass</param-name>
+		<param-value>
+			org.springframework.web.context.support.AnnotationContextWebApplicationContext
+		</param-value>
+	</context-param>
+	<context-param>
+		// JavaConfig 지정
+		<param-name>contextConfigLocation</param-name>
+		<param-value>JavaConfig 클래스</param-value>
+	</context-param>
+	리스너 생략...
+	<servlet>
+		<servlet-name>sampleServlet</servlet-name>
+		<servlet-class>
+			org.springframwork.web.servlet.DispatcherServlet
+		</servlet-class>
+		<init-param>
+			// 명시적으로 지정
+			<param-name>contextClass</param-name>
+			<param-value>
+				org.springframwork.web.context.support.AnnotationConfigWebApplicationContext
+			</param-value>
+		</init-param>
+	</servlet>
+```
+
+> ### 메시지 소스
+>> ApplicationContext는 MessageSource 인터페이스를 구현하여 ApplicationContext가 다루는 특정 언어, 지역, 문화 환경에 의존하는 부분을 시스템에서 분리하도록 돼 있다.  
+　  
+메시지를 등록하려면 Bean 정의 파일에 메시지 소스 오브젝트를 등록하고, 메시지를 얻을 떄는 ApplicationContext의 getMessage() 메서드를 이용한다. 또는 MessageSource 형의 오브젝트를 @Autowired로 인젝션해두고 MessageSource#getMessage로 취득하는 방법도 있다. 메세지만을 사용하는 경우라면 이렇게 MessageSource를 인젝션 하는것이 목표를 명확하게 한다.
+
+> ### 이벤트 처리
+>> ApplicationContext는 다음 5가지의 이벤트를 발생시킨다.
+
+<table>
+	<tr>
+		<th>이벤트명</th>
+		<th>발생 시점</th>
+	</tr>
+	<tr>
+		<td>ContextRefreshedEvent</td>
+		<td>Bean 생명 주기의 초기화 상태 후 발생</td>
+	</tr>
+	<tr>
+		<td>ContextStartedEvent</td>
+		<td>ApplicationContext가 시작했을 때 발생</td>
+	</tr>
+	<tr>
+		<td>ContextStoppedEvent</td>
+		<td>ApplicationContext가 정지했을 때 발생</td>
+	</tr>
+	<tr>
+		<td>ContextClosedEvent</td>
+		<td>ApplicationContext의 close 메서드가 호출됐을 때 발생</td>
+	</tr>
+	<tr>
+		<td>RequestHandledEvent</td>
+		<td>웹 시스템 고유의 이벤트, HTTP 요청에 의해 서비스가 호출됐을 때 발생</td>
+	</tr>
+</table>
+
+>> ApplicationListener 인터페이스를 구현한 클래스를 DI 컨테이너에 등록함으로써 받을 수 있다.
+
+* * *
+## 스프링 로깅
+> Commons Logging으로 로그를 출력하며 Log4j 라이브러리가 있으면 Log4j를 사용할 수 있다. Log4j 라이브러리를 클래스 경로에 두고 /WEB-INF/log4j.xml을 배치한다.
+
+* * *
+## 스프링 유닛 테스트
+> ```
+// 스프링의 유닛 테스트를 한다는 선언
+@RunWith(SpringJUnit4ClassRunner.class)
+// 유닛테스트에 사용할 config 기술
+@ContextConfiguration(locations = {"/di_bean/pokedex/config/applicationContext.xml"})
+//테스트 대상 인터페이스
+public class PokedexServiceTest {
+    // 테스트에 사용할 구현 오브젝트 인젝션
+    @Autowired
+    PokedexService pokedexService;
+    　  
+    @Test
+    public void findPokemonById() {
+        Pokemon raichu = new Pokemon(
+                26,
+                "라이츄",
+                60,
+                90
+                ,55,
+                90,
+                80,
+                110
+        );
+        　  
+        pokedexService.addPokemon(raichu);
+        Pokemon foundPokemon = pokedexService.findByPokemonId(26);
+        assertEquals(raichu, foundPokemon);
+    }
+}
+```  
+@Sql을 사용해서 데이터베이스의 테이블을 초기화할 수 있다.
+　  
+외부에 공개된 부품 단위로 타당한 범위안에서 테스트를 진행한다.
+
+* * *
+## Bean 정의 파일의 프로파일 기능
+> Bean 정의 파일을 프로파일 형태로 그룹화해서 DI 컨테이너로 작성할 때 프로파일을 지정하는 것으로, 어떤 Bean 정의 파일을 유효화할 것인지를 지정하는 기능이다.
+```
+	<beans>
+		<beans profile="test">
+			...
+		</beans>
+		　  
+		<beans proifle="production">
+			...
+		</beans>
+	</beans>
+```
+이후 DI 컨테이너에 프로파일을 지정하면 된다.
+### DI 컨테이너에 직접 지정하는 방법
+>> ```
+GenericXmlApplicationContext factory = new GenericXmlApplicationContext();
+factory.getEnvorinment().setActiveProfiles("test");
+factory.load("정의 파일");
+factory.refresh();
+```
+setActiveProfiles 이름에서 보듯이 여러 개 지정할 수도 있다.
+
+> ### SpringJUnity4ClassRunner 테스트 클래스를 지정하는 방법
+>> @ActiveProfiles 어노테이션으로 설정 가능하다
+```
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration("정의 파일")
+@ActiveProfiles("test");
+public class ...Test {
+	...
+}
+```
+마찬가지로 여러 개 지정할 수 있다.
+
+> ### 웹 애플리케이션에서 지정하는 방법
+>> ContextLoaderListener에서 작성되는 DI 컨테이너에서 지정하기
+```
+	<context-param>
+		<param-name>spring.profiles.active</param-name>
+		<param-value>production</param-value>
+	</context-param>
+```
+쉼표로 여러개 지정할 수 있다.  
+　  
+DispatcherServlet으로 작성되는 DI 컨테이너에 프로파일 지정하기
+```
+	<servlet>
+		...
+		<init-param>
+			<param-name>spring.profiles.active</param-name>
+			<param-value>production</param-value>
+		</init-param>
+		...
+	</servlet>
+```
+
+* * *
+## 생명 주기
+> JUnit으로 테스트를 하는 경ㅈ우에도, 엔터프라이즈 시스템에서 동작하는 경우에도 초기화(initialization) - 이용(use) - 종료(destruction)의 세 단계로 진행된다.  
+　  
+**Initialization**: 이용하기 위해서 애플리케이션을 생섬함, 시스템 리소스를 확보함  
+**Use**: 애플리케이션에서 이용됨(애플리케이션의 99.9%가 이 단계)  
+**Destruction**: 종료 처리. 시스템의 리소스를 돌려줌, 애플리케이션은 가비지 콜렉션의 대상이 됨  
