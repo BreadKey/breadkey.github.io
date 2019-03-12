@@ -325,7 +325,7 @@ jdbcTemplate.update("INSERT INTO PET (PET_ID, PET_NAME, ONWER_NAME, PRICE, BIRTH
 > ### NamedParameterJdbcTemplate
 >> 지금까지 SQL의 파라미터에 플레이스홀더(? 마크)를 사용해서 지정했다. 순서를 맞추어 주어야 하는데 플레이스홀더의 값이 많아지면 순서가 어긋나 엉뚱한 값을 지정할 수도 있다. 이럴 때 NamedParameterJdbcTemplate클래스를 사용하여 파라미터에 이름을 설정하여 이름과 값을 명시적으로 연결할 수 있다.  
 　  
-[소스코드](https://github.com/study-return-study/spring-study/blob/study-dataaccess/study-dataaccess/breadkey/src/datasource/pokedex/dataaccess/PokemonDaoImpl.java)
+[소스코드](https://github.com/study-return-study/spring-study/blob/master/study-dataaccess/breadkey/src/spring_jdbc/pokedex/dataaccess/PokemonDaoImpl.java)
 
 > ### 배치 업데이트, 프로시저콜
 >> #### batchUpdate 메서드
