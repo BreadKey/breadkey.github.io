@@ -112,8 +112,8 @@ keyword와 마찬가지로 각각의 type을 가진 token으로 나눈다.
     </tr>
     <tr>
     	<td>CALOP</td>
-    	<td>"+"|"-"|"*"|"/"|%|</td>
-    	<td>각각 ADD SUB MUL DIV MODvalue를 가진다.</td>
+    	<td>"+"|"-"|"*"|"/"|%</td>
+    	<td>각각 ADD SUB MUL DIV MOD value를 가진다.</td>
     </tr>
     <tr>
         <td>ASSOP</td>
