@@ -2,9 +2,8 @@
 layout: default
 title: 빵기 정보
 ---
-> # 이영기
-> ### 아주대학교 정보통신대학 소프트웨어학과
+{% include figure.html src="/assets/img/name-card.jpeg" figcaption="Drawn By PostScript" %}
+**Email.** 2breadkey@gmail.com
 
-> **Mobile.** 010-4705-9412   
-> **E-mail.** 2breadkey@gmail.com   
-> **GitHub.** [https://github.com/breadkey](https://github.com/breadkey)
+**Git.** [Github]("https://github.com/BreadKey")  
+　　[Ajou Univ.]("http://git.ajou.ac.kr/LYK")
