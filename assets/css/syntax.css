@@ -5,6 +5,7 @@
   background-color: #151515;
   padding: 4px;
   border-radius: 8px;
+  overflow-x: scroll;
 }
 .highlight .err {
   color: #151515;
