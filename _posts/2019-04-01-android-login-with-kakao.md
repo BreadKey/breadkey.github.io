@@ -111,8 +111,8 @@ private SessionCallback sessionCallback;
 
 @Override
 protected void onCreate(Bundle savedInstanceState) {
-	...
-	sessionCallback = new SessionCallback();
+    ...
+    sessionCallback = new SessionCallback();
 }
 
 @Override
@@ -126,8 +126,8 @@ protected void onActivityResult(int requestCode, int resultCode, @Nullable Inten
 
 @Override
 protected void onDestroy() {
-	super.onDestroy();
-	Session.getCurrentSession().removeCallback(sessionCallback);
+    super.onDestroy();
+    Session.getCurrentSession().removeCallback(sessionCallback);
 }
 
 private class SessionCallback implements ISessionCallback {
