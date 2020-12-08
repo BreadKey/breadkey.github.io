@@ -180,7 +180,7 @@ stringTable의 값을 출력한다.
 # 4. 입력 데이터
 ## 4.1 ex1.txt
 어휘 오류가 존재하지 않는 입력 데이터이다.
-```
+```c
 int f (int a, double b) {
         int sum = 0;
         str string = "Hello, World!"; // hello world!
@@ -210,7 +210,7 @@ int f (int a, double b) {
 ```
 ## 4.2 ex2.txt
 어휘 오류가 존재하는 입력 데이터이다.
-```
+```c
 print(aaa,
 aaa,
 ~, //lexcial error

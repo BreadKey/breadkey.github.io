@@ -1,3 +1,7 @@
+body {
+	font-family: 'Nanum Gothic', sans-serif;
+}
+
 a {
 	text-decoration: none;
 }
@@ -72,8 +76,8 @@ img {
 }
 
 #profile-container {
-	width: 20%;
-	height: 28%;
+	width: 250px;
+	height: 300px;
 	float: right;
 	background-color: dimgray;
 	margin-right: 5%;
@@ -89,7 +93,6 @@ img {
 }
 
 .main {
-	max-width: 1012px; 
 	margin-left: auto; 
 	margin-right: auto;
 	margin-top: 20px;
@@ -97,14 +100,4 @@ img {
 
 .main div {
 	box-sizing: border-box;
-}
-
-.highlighter-rouge {
-	background-color: ivory;
-	color: #312123;
-	padding-inline-start: 1em;
-	padding-block-start: 0.1em;
-	padding-block-end: 0.1em;
-	border-radius: 0.5em;
-	overflow-x: auto;
 }

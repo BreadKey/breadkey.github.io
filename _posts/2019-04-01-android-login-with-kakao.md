@@ -9,7 +9,7 @@ layout: post
 # 1. KakaoSDK 설치(Gradle)
 ## 1.1 Repostiory 등록
 build.gradle(Module: app)
-```
+```gradle
 repositories {
     ...
     mavenCentral()
@@ -18,12 +18,12 @@ repositories {
 ```
 ## 1.2 version 설정
 gradle.properites
-```
+```properties
 KAKAO_SDK_VERSION = 1.17.0 # 현재 최신 버전
 ```
 
 ## 1.3 로그인 SDK 의존성 등록
-```
+```gradle
 dependencies {
 	...
 	implementation group: 'com.kakao.sdk', name: 'usermgmt', version: project.KAKAO_SDK_VERSION
@@ -34,7 +34,7 @@ dependencies {
 # 3. [사용자 관리 설정](https://developers.kakao.com/docs/android/user-management#시작하기-전에)
 # 4. SDK와 Application 연결
 ## 4.1 GlobalApplication 클래스 생성
-```
+```java
 public class GlobalApplication extends Application {
     private static volatile GlobalApplication instance = null;
 
@@ -106,7 +106,7 @@ public class GlobalApplication extends Application {
 
 # 5. LoginAcitivity에 com.kakao.usermgmt.LoginButton 추가
 # 6. ISessionCallback 구현 및 Session에 추가
-```
+```java
 private SessionCallback sessionCallback;
 
 @Override
@@ -146,7 +146,7 @@ private class SessionCallback implements ISessionCallback {
 ```
 
 # 7. 사용자 정보 Request
-```
+```java
 public void requestAuth() {
 	ArrayList<String> keys = new ArrayList<>();
 	keys.add("properties.nickname");

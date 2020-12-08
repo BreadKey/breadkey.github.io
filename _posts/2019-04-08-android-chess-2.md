@@ -5,4 +5,10 @@ categories: project
 tags: spring
 layout: post
 ---
-{% include figure.html src="/assets/img/chess-server-er.png" %}
+<div class=mermaid>
+erDiagram
+User }|--o{ Game : plays
+User ||--o{ RankRecord : has
+Game }o--o{ RankRecord : captures
+Game ||--o{ Move : logs 
+</div>
