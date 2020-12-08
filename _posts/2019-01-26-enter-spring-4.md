@@ -99,7 +99,7 @@ layout: post
 >> 개발자가 적절한 데이터 소스의 구현체를 선택해서 설정한다. 구현의 종류는 다음과 같이 분류할 수 있다.
 #### 서드 파티가 제공하는 데이터 소스
 대표적으로 [Apache Commons DBCP](https://commons.apache.org/proper/commons-dbcp/)가 있다. 오픈 소스로, 무상으로 이용할 수 있고 커넥션 풀도 대응한다. 다음과 같이 정의할 수 있다.
-```
+```xml
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
         destroy-method="close">
         <property name="driverClassName" value="${jdbc.driverClassName}" />
@@ -110,13 +110,13 @@ layout: post
     </bean>
 ```
 "${}" 내의 프로퍼티 파일을 읽기 위해 다음도 추가해주어야 한다.
-```
+```xml
     <context:property-placeholder location="jdbc.properties" />
 ```
 property-placeholder를 지정하면 내부에서 PropertySourcesPlaceholderConfigurer 오브젝트가 생성되고 "${}" 부분에 대해서 프로퍼티값으로 치환한다.  
 　  
 JavaConfig로도 동일하게 정의할 수 있다.
-```
+```java
 @Configuration
 @PropertySource("jdbc,properties")
 public class DataSourceConfig {
@@ -183,7 +183,7 @@ SQL 파라미터에 임의의 이름을 붙여 SQL을 발행할 수 있다.
 템플릿 클래스의 메서드를 사용하기 위해 오브젝트를 생성해야 한다. Bean 정의를 할 때 스프링이 오브젝트를 생성하게 하는 것이 좋다.  
 　  
 XML로 Bean 정의하는 경우
-```
+```xml
 	<bean class="org.springframework.jdbc.core.Jdbctemplate">
 		<constructor-arg ref="dataSource" />
 	</bean>
@@ -193,7 +193,7 @@ XML로 Bean 정의하는 경우
 ```  
 　  
 JavaConfig로 정의하는 경우  
-```
+```java
 	@Autowired
 	private DataSource dataSource;
 	　
@@ -215,7 +215,7 @@ SQL 발행 방법은 다음 테이블로 설명한다.
 > ### SELECT 문(도메인으로 변환하지 않을 때)
 >> #### queryForObject 메서드
 레코드의 건수를 취득하는 경우나, 특정 칼럼만 취득하는 등 값을 단순하게 취득하는 경우를 말한다.
-```
+```java
 int count = jdbcTemplate.queryForObject(
 	"SELECT COUNT(*) FROM PET", Integer.class);
 ```
@@ -226,21 +226,21 @@ Integer 뿐만 아니라 String, Date(java.util)등도 취득할 수 있다.
 
 >> #### queryForMap 메서드
 칼럼이 아니라 한 레코드의 값을 가져오는 방법이다.
-```
+```java
 Map<String, Object> pet = jdbcTemplate.queryForMap("SELECT * FROM PET WHERE PEI_ID=?", id);
 ```
 여기서 만약 PET_NAME 칼럼 값을 참조하고 싶다면 다음처럼 기술한다.
-```
+```java
 String petName = (String)pet.get("PET_NAME");
 ```
 
 >> #### queryForList 메서드
 여러 레코드분의 Map을 가져올 때나 칼럼들을 가져올 때 사용한다.
-```
+```java
 List<Map<String, Object>> petList = jdbcTemplate.queryForList(
 	"SELECT * FROM PET WHERE OWNER_NAME=?", ownerName);
 ```
-```
+```java
 List<Integer> priceList = jdbcTemplate.queryForList(
 	"SELECT PRICE FROM PET WHERE OWNER_NAME=?", ownerName);
 ```
@@ -249,7 +249,7 @@ List<Integer> priceList = jdbcTemplate.queryForList(
 >> queryForObject와 query 메서드를 사용한다.
 >> #### queryForOjbect
 한 레코드의 도메인을 가져올 떄 사용한다.
-```
+```java
 Pet pet = jdbcTemplate.queryForObject(
 	"SELECT * FROM PET WHERE PET ID=?",
 	new RowMapper<Pet>() {
@@ -272,11 +272,11 @@ RowMapper는 스프링이 제공하는 인터페이스로, mapRow 메서드는 1
 
 >> #### query 메서드
 여러 레코드의 오브젝트를 가져오려면 query 메서드를 사용해야 한다. 사용법은 queryForObject와 동일하다.
-```
+```java
 List<Pet> pets = jdbcTemplate.query("SELECT * FROM PET WHERE OWNER_NAME=?", new PetRowMapper(), ownerName);
 ```
 여기서 PetRowMapper도 직접 구현하지 않고 자동으로 변환하게 해줄 수 있는데, BeanPropertyRowMapper를 사용한다.
-```
+```java
 List<Pet> pets = jdbcTemplate.query("SELECT * FROM PET WHERE OWNER_NAME=?", new BeanPropertyRowMapper<Pet>(Pet.class), ownerName);
 ```
 단, 컬럼의 이름과 set메서드의 이름이 같아야 한다.  
@@ -286,7 +286,7 @@ ex) PET_ID -> setPetId
 매우 편리하지만 내부에서 리플렉션을 많이 사용하므로 성능이 나빠진다.  
 　  
 테이블을 JOIN한 SELECT 문일 때, 예를 들어 OWNER 테이블의 한 레코드와 외부 키가 연결된 PET 테이블의 여러 레코드를 가져오고 싶을 때는 RowMapper 인터페이스가 적절하지 않다. 이럴 때는 ResultSetExtractor를 사용한다. 레코드 한 건에 대한 변환 처리를 하는 mapRow 메서드와 달리 extractData 메서드는 가져온 여러 레코드를 한 번에 처리할 수 있다. 사용 방법은 다음과 같다.
-```
+```java
 Owner owner = jdbcTemplate.query("SELECT * FROM OWNER O INNER JOIN PET P ON O.OWNER_NAME = P.OWNER_NAME WHERE O.OWNER_NAME=?",
     new ResultSetExtractor<Owner>() {
         @Override
@@ -317,7 +317,7 @@ Owner owner = jdbcTemplate.query("SELECT * FROM OWNER O INNER JOIN PET P ON O.OW
 > ### INSERT/UPDATE/DELETE 문
 >> update 메서드만을 사용하므로 아주 간단하다. 이 메서드는 SQL의 UPDATE문을 뜻하지 않는다.
 #### INSERT
-```
+```java
 jdbcTemplate.update("INSERT INTO PET (PET_ID, PET_NAME, ONWER_NAME, PRICE, BIRTH_DATE) VALUES (?, ?, ?, ?, ?)", 
 	pet.getPetId(), pet.getPetName(), pet.getOwnerName(), pet.getPrice(), price.getBirthDate());
 ```
@@ -332,7 +332,7 @@ jdbcTemplate.update("INSERT INTO PET (PET_ID, PET_NAME, ONWER_NAME, PRICE, BIRTH
 여러 개의 갱신(UPDATE, INSERT 문의 실행)을 모아서 데이터베이스에서 처리하기 위한 것이다. 하나씩 실행하는 것과 비교하면 성능에서 큰 차이가 있으므로 갱신하는 양이 많은 경우에 배치 업데이트를 사용하는 것이 좋다.  
 　  
 첫 번째는 BatchPareparedStatementSetter 클래스의 익명 클래스의 오브젝트를 인수로 넘겨주는 방법이다.
-```
+```java
 ArrayList<Pet> petList = ... // 갱신할 Pet 오브젝트들 준비
 int[] num = jdbcTemplate.batchUpdate(
 	"UPDATE PET SET OWNER_NAME=? WHERE PET_ID=?",
@@ -349,7 +349,7 @@ int[] num = jdbcTemplate.batchUpdate(
 		});
 ```
 두 번째는 NamedParameterJdbcTemplate의 batchUpdate 메서드를 사용한다.
-```
+```java
 SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(petList.toArray());
 num = namedParameterJdbctemplate.batchUpdate(
 	"UPDATE PET SET OWNER_NAME=:ownerName WHERE PET_ID=:petId",
@@ -363,8 +363,8 @@ num = namedParameterJdbctemplate.batchUpdate(
 * IN 파라미터: IN_PET_ID
 * OUT 파라미터: OUT_PRICE
 
->> proc.sql
-```
+>> ```proc.sql```
+```sql
 CREATE PROCEDURE CALC_PET_PRICE(IN IN_PET_ID INT, OUT OUT_PRICE INT)
 	READS SQL DATA
 BEGIN ATOMIC
@@ -375,7 +375,7 @@ END
 /
 ```
 프로시저콜 사용
-```
+```java
 SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate.getDataSource())
         .withProcedureName("CALC_PET_PRICE")
         // HSQLDB는 프로시저의 파리미터 등 메타 데이터 취득을 스프링이 지원하지 않아서 기술함
@@ -407,8 +407,8 @@ JPA를 이용한 프로그램의 작성은 기본적으로 다음 두 작업이 
 >> #### Entity 클래스의 작성
 예제에 사용할 JDBC를 사용할 때와 동일하다.  
 　  
-Pet.java
-```
+*Pet.java*
+```java
 @Entity
 public class Pet {
 	@Id
@@ -422,8 +422,8 @@ public class Pet {
 	... getter setter 생략
 }
 ```
-Owner.java
-```
+*Owner.java*
+```java
 @Entity
 public class Owner {
 	@Id
@@ -438,7 +438,7 @@ public class Owner {
 #### EntityManager 메서드 호출
 오브젝트 세계와 RDB 세계를 연결해주는 역할을 한다. Entity Manager를 통해서 엔티티를 취득하거나 갱신하면 내부에서 RDB에 액세스가 일어난다. EntityManager 오브젝트의 생성 및 취득을 위해선 여러 가지 설정이 필요하지만 여기서는 생략한다.  
 EntitiyManager 호출 예제
-```
+```java
 EntitiyManager entitiyManager = ... // 취득 생략
 EntityTranscation transaction = entitiyManager.getTransaction();
 // 트랜잭션을 개시하는 메서드 호출
@@ -476,7 +476,7 @@ for (Pet currentPet: petList {
 >> EntityManager의 설정은 EntityManagerFactory의 FactoryBean 설정에서 하는데 역시 Bean 정의 파일에서 하는 방법과 JavaConfig에서 하는 방법이 있다. JPA의 구현으로 하이버네이트를 사용하므로 하이버네이트의 설정도 포함된다.  
 　  
 Bean 정의 파일
-```
+```xml
     <!-- EntityManagerFactory의 설정 -->
     <bean id="entityManagerFactory"
         class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
@@ -542,13 +542,13 @@ LocalContainerEntityManagerFactoryBean을 사용하고 있는데, 특별한 이�
 >> 상단의 테이블은 JPA 구현에 의존하지 않는 설정이고 하단의 테이블은 하이버네이트의 고유 설정이다.  
 　  
 DAO 구현을 자동으로 생성하는데 필요한 항목은 다음과 같다.
-```
+```xml
     <jdbc:repositories base-package = "spring_jpa.sample.business.service" />
 ```
 base-package 속성에 지정한 패키지 밑을 스프링이 스캔해서 Spring Data JPA에 대응한 인터페이스를 발견하면 구현 클래스를 자동으로 생성해준다.  
 　  
 JavaConfig
-```
+```java
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "spring_jpa.sample.business.service")
@@ -580,7 +580,7 @@ public class JpaConfig {
 
 > ### DAO 인터페이스 작성
 >> 매우 간단하다. JpaRepository 인터페이스를 상속하면서 해당 Domain과 ID의 타입을 지정해주면 된다.
-```
+```java
 @Repository
 public interface PetDao extends JpaRepository<Pet, Integer> {
 }
@@ -620,7 +620,7 @@ JpaRepository 외에도 사용할 수 있는 인터페이스가 많지만 이 �
 
 > ### 명명 규칙에 따른 메서드 정의
 >> Springn Data JPA에서는 키워드라고 부르는 명명 규칙에 따른 메서드의 이름을 부여하면, 이름이 나타내는 내용에 따른 메서드의 구현을 자동 생성해주는 기능이 있다.
-```
+```java
 @Repository
 public interface PetDao extends JpaRepository<Pet, Integer> {
 	List<Pet> findByPetName(String petName);
@@ -629,26 +629,26 @@ public interface PetDao extends JpaRepository<Pet, Integer> {
 findBy 다음에 나오는 문자열을 프로퍼티명으로 하고 프로퍼티와 같은 형을 인수로 정의하면 임의의 프로퍼티로 검색할 수 있다. 
 　  
 Pet 명과 지정한 가격 이하의 Pet을 검색하는 경우에도 자동 생성해줄 수 있다.
-```
+```java
 List<Pet> findByPetNameAndPriceLessThanEqual(String petName, int price);
 ```
 And, LessThanEqual은 키워드라고 부르는데, 이 밖의 키워드로 Not, Between 등이 있다.
 >> #### 검색에서의 JPQL 지정
 테이블 조인을 해야 하는 검색 등이 있을 때 @Query 어노테이션을 사용해 JPQL을 명시적으로 지정하여 사용할 수 있다.
-```
+```java
 @Query("select p from Pet p where p.owner.ownerName = ?1")
 List<Pet> findByPetOwnerName(String ownerName);
 ```
 위는 Owner 엔티티의 필드인 ownerName을 연결하고 있다(Pet에 존재하지 않음) ? 뒤의 번호는 파라미터의 순번을 나타낸다.  
 　  
 물론 파라미터명을 정해줄 수 있다.
-```
+```java
 @Query("select p from Pet p where p.owner.ownerName = :ownerName")
 List<Pet> findByOwnerName(@Param("ownerName") String ownerName);
 ```
 #### 갱신에서의 JQPL 지정
 @Query와 @Modifying을 지정한다.
-```
+```java
 @Modifying
 @Query("update Pet p set p.price = ?1 where p.petName = ?2")
 int updatePetPrice(Integer price, String petName);
@@ -660,13 +660,13 @@ int updatePetPrice(Integer price, String petName);
 >> 인터페이스명과 구현 클래스명은 임의이지만, Bean의 ID는 레포지토리명(구현이 자동 생성된 인터페이스명, 첫 글자는 소문자로) + Impl로 할 필요가 있다.  
 　  
 커스텀 DAO 인터페이스
-```
+```java
 public interface PetDaoCustom {
 	void foo();
 }
 ```
 커스텀 DAO 구현 클래스
-```
+```java
 public class PetDaoImpl implements PetDaoCustom {
 	@Override
 	public void foo() {
@@ -677,7 +677,7 @@ public class PetDaoImpl implements PetDaoCustom {
 다음 구현이 자동으로 생성되는 인터페이스에 자신이 구현한 인터페이스를 상속한다.  
 　  
 인터페이스 상속
-```
+```java
 @Repository
 public interface PetDao exstends JpaRepository<Pet, Integer>, PetDaoCustom {
 	...
