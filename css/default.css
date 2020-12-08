@@ -42,11 +42,11 @@ td.tag-content {
 }
 
 a#post-title-link {
-	color: burlywood;
+	color: darkgoldenrod;
 }
 
 a:hover#post-title-link {
-	color: wheat;
+	color: burlywood;
 }
 
 a#tag-link {
