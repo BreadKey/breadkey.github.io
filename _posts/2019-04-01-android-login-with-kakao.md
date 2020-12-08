@@ -116,16 +116,16 @@ protected void onCreate(Bundle savedInstanceState) {
 }
 
 @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
-            return;
-        }
-
-        super.onActivityResult(requestCode, resultCode, data);
+protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+        return;
     }
 
+    super.onActivityResult(requestCode, resultCode, data);
+}
+
 @Override
-protected ovid onDestroy() {
+protected void onDestroy() {
 	super.onDestroy();
 	Session.getCurrentSession().removeCallback(sessionCallback);
 }
