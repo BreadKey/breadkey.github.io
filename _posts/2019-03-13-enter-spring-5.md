@@ -217,7 +217,7 @@ AOP를 사용하면 서비스 내부를 수정하지 않고 트랜잭션 처리�
 사용할 데이터 액세스 기술에 맞게 적절한 구현 클래스를 선택하고 Bean에 등록한다
 
 DataSourceTransactionManager 등록
-```
+```xml
 <bean id="transactionManager"
 	class = "org.springframework.jdbc.datasource.DataSourceTransactionManager">
 	<property name="dataSource" ref="dataSource" />
@@ -273,7 +273,7 @@ DataSourceTransactionManager 등록
 
 #### Bean 정의 파일에 의한 선언적 트랜잭션
 tx 스키마를 사용해 트랜잭션의 어드바이스를 설정하고 정의 정보를 설정할 수 있다..
-```
+```xml
 <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
 	<tx:attributes>
 		<tx:method name="update*" 
@@ -287,7 +287,7 @@ tx 스키마를 사용해 트랜잭션의 어드바이스를 설정하고 정의
 ```
 #### 어노테이션에 의한 선언적 트랜잭션
 @Transactional 어노테이션을 사용한다.
-```
+```java
 @Transactional(
 	propagation=Propagation.REQUIRED,
 	isolation=Isolation.READ_COMMITTED,
