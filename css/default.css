@@ -101,3 +101,11 @@ img {
 .main div {
 	box-sizing: border-box;
 }
+
+.language-plaintext {
+	background-color: ivory;
+	color: #312123;
+	padding: 4px;
+	border-radius: 2px;
+	overflow-x: auto;
+}
