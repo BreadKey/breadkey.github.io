@@ -131,18 +131,18 @@ protected void onDestroy() {
 }
 
 private class SessionCallback implements ISessionCallback {
-        @Override
-        public void onSessionOpened() {
-            redirectSignUpActivity();
-        }
+    @Override
+    public void onSessionOpened() {
+        redirectSignUpActivity();
+    }
 
-        @Override
-        public void onSessionOpenFailed(KakaoException exception) {
-            if (exception != null) {
-                Logger.e(exception);
-            }
+    @Override
+    public void onSessionOpenFailed(KakaoException exception) {
+        if (exception != null) {
+            Logger.e(exception);
         }
     }
+}
 ```
 
 # 7. 사용자 정보 Request
