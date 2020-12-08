@@ -9,7 +9,7 @@ layout: post
 자바 플랫폼에서 돌아가는 새로운 프로그래밍 언어이다. 간결하고 실용적이며, 자바 코드와의 **상호운용성**을 중시한다. 즉, 모든 자바 라이브러리나 프레임워크를 코틀린에서도 사용할 수 있다.
 
 ## 1.1 코틀린 맛보기
-```
+```kotlin
 // '데이터' 클래스
 data class Person (
     // 프로퍼티
@@ -82,7 +82,7 @@ class, interface, generics는 모두 자바와 비슷하게 작동하므로 자�
 
 이런 핵심개념들로 작성한 코드는 간결하며 우아하다. 함수를 값처럼 활용하여 더 강력한 추상화를 할 수 있어코드 중복을 막을 수 있다.
 
-```
+```kotlin
 fun findAlice() = findPerson { it.name == "Alice "}
 fun findBob() = findPerson { it.name = "Bob" }
 ```
