@@ -14,7 +14,7 @@ tags: [java, intellij, maven, spring]
 >> [참고문서](https://maven.apache.org/pom.html)  
 POM은 Project Object Model의 약자이다. 구성 파일뿐 아니라 관련된 개발자와 역할, 조직 및 라이센스, 프로젝트가있는 위치의 URL, 프로젝트의 종속성 및 다른 모든 작은 부분까지 포함한다.
 
-```
+```xml
 <project xmlns="http://maven.apache.org/POM/4.0.0"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -77,7 +77,7 @@ POM은 Project Object Model의 약자이다. 구성 파일뿐 아니라 관련�
 　  
 Spring Data JPA을 활용하여 DAO를 자동으로 생성하고자 하는데, 이에 필요한 의존성은 다음과 같다.
 
-```
+```xml
     <dependencies>
         <!-- Spring -->
         <dependency>
@@ -138,13 +138,13 @@ Spring Data JPA을 활용하여 DAO를 자동으로 생성하고자 하는데, �
     </dependencies>
 ```
 > 스프링 제품들의 version은 ${org.springframework-version}이라고 돼있는데, 이는 properties에 정의한 값을 불러오는 것이다. properties에는 스프링 버전을 다음과 같이 정의했다.
-```
+```xml
     <properties>
         <org.springframework-version>4.1.6.RELEASE</org.springframework-version>
     </properties>
 ```
 빌드 환경을 정의한다
-```
+```xml
     <build>
         <plugins>
             <plugin>
