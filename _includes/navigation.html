@@ -2,9 +2,9 @@
 	{% for item in site.data.navigation %}
 		<a id="category" href="{{ item.link }}" 
 			{% if page.url == item.link %}
-				style = "color: burlywood; font-weight: bold;" 
+				style = "color: #f4bf75; font-weight: bold;" 
 			{% else %} 
-				style = "color: ivory;"
+				style = "color: #d28445;"
 			{% endif %}
 			>
 			{{ item.name }}

@@ -26,7 +26,7 @@ a {
 
 #navigation-container {
 	height: 50px;
-	background-color: dimgray;
+	background-color: #151515;
 	font-size: 1.2em;
 }
 
@@ -37,7 +37,7 @@ table.tag-container {
 
 td.tag-content {
 	border-radius: 5px;
-	background-color: dimgray;
+	background-color: #151515;
 	text-align: center;
 	padding-block-start: 2px;
 	padding-block-end: 2px;
@@ -46,23 +46,23 @@ td.tag-content {
 }
 
 a#post-title-link {
-	color: darkgoldenrod;
+	color: #8f5536;
 }
 
 a:hover#post-title-link {
-	color: burlywood;
+	color: #f4bf75;
 }
 
 a#tag-link {
-	color: ivory;
+	color: #d0d0d0;
 }
 
 a:hover#tag-link {
-	color: burlywood;
+	color: #f4bf75;
 }
 
 ul#post-list-ul {
-	border-bottom: 1px solid wheat;
+	border-bottom: 1px solid #aa759f;
 	padding-bottom: 10px;
 }
 
@@ -79,7 +79,7 @@ img {
 	width: 250px;
 	height: 300px;
 	float: right;
-	background-color: dimgray;
+	background-color: #151515;
 	margin-right: 5%;
 	border-radius: 5%;
 }
