@@ -1,8 +1,8 @@
-<div class="post-summary style" style="border-bottom: 1px solid #aa759f;">
+<div class="post-summary" style="padding-bottom: 10px; border-bottom: 1px solid #aa759f;">
 	<a id="post-title-link" href="{{ post.url }}">
 		<h2>{{ post.title }}</h2>
 	</a>
-	<p id = "post-date" style="padding-bottom: 10px;">{{ post.date | date_to_string }} - {{ post.author }}</p>
+	<p id = "post-date" style="border-bottom: 1px solid #aa759f;">{{ post.date | date_to_string }} - {{ post.author }}</p>
 	<div style="width: 90%; margin-left: auto; margin-right: auto;">{{ post.excerpt }}</div>
 	{% include post_tag.html %}
 </div>
