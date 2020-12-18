@@ -84,7 +84,8 @@ img {
 }
 
 #content-container {
-	width: 75%;
+	width: 90%;
+	max-width: 800px;
 }
 
 .float-left {

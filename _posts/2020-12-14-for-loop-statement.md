@@ -3,6 +3,7 @@ title: for문 조건문
 author: breadkey
 categories: bandage
 layout: post
+tags: dart
 ---
 
 # Fault
